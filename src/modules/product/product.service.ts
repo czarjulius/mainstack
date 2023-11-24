@@ -1,6 +1,6 @@
 import Product from '../../db/models/products';
 // import { getPaginatedRecords } from '@helpers/paginate';
-// import { GetProductsInterface } from './product.interface';
+import { AddProductInterface } from './product.interface';
 
 export const getAllProducts = async () => {
   try {
@@ -21,40 +21,34 @@ export const getAllProducts = async () => {
   }
 };
 
-// export const createProduct = async (data: AddProductInterface) => {
-//   try {
-//     const product = await Product.create(
-//       sanitizeObj({
-//         name: data.name,
-//         description: data?.description,
-//         categoryId: data.categoryId,
-//         merchantId: data.merchantId,
-//         subCategoryId: data.subCategoryId,
-//         productImage: data.productImage,
-//         qtyInStock: data.qtyInStock,
-//         price: data.price,
-//         type: data.type,
-//         meta: {
-//           ...data.meta,
-//           color: data?.meta?.color?.toLocaleLowerCase(),
-//           images: data.meta.images,
-//         },
-//       })
-//     );
-//     return {
-//       error: false,
-//       message: 'Product added successfully.',
-//       data: product,
-//     };
-//   } catch (err) {
-//     console.log(err);
-//     return {
-//       error: true,
-//       message: (err as any).message,
-//       data: null,
-//     };
-//   }
-// };
+export const createProduct = async (data: AddProductInterface) => {
+  try {
+    const newProduct = {
+      name: data.name,
+      description: data?.description,
+      categoryId: data.categoryId,
+      productImage: data.productImage,
+      price: data.price,
+    };
+
+    const productInstance = new Product(newProduct);
+
+    const product = await productInstance.save();
+
+    return {
+      error: false,
+      message: 'Product added successfully.',
+      data: product,
+    };
+  } catch (err) {
+    console.log(err);
+    return {
+      error: true,
+      message: (err as any).message,
+      data: null,
+    };
+  }
+};
 
 // export const getProduct = async (data: GetProductInterface) => {
 //   try {

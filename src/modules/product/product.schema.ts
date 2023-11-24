@@ -8,10 +8,7 @@ export const getProductsSchema = Joi.object({
 export const createProductSchema = Joi.object({
   name: Joi.string().trim().required(),
   description: Joi.string().trim(),
-  categoryId: Joi.number().required(),
+  // categoryId: Joi.string().trim().required(),
   productImage: Joi.string().trim().required(),
   price: Joi.number().required(),
-  meta: Joi.object({
-    tags: Joi.array().items(Joi.string()),
-  }),
 });

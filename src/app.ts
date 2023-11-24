@@ -59,7 +59,7 @@ apiRouter.use((error: any, _req: Request, res: Response, _next: Function) => {
   });
 });
 
-const apiURL = '/mainstack';
+const apiURL = '/';
 
 app.use(apiURL, apiRouter); // link up routes
 

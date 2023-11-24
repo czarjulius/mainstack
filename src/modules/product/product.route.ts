@@ -6,13 +6,7 @@ import * as productSchema from './product.schema';
 
 const router = Router();
 
-// router.post(
-//   "/",
-//   isLoggedIn,
-//   isAdmin,
-//   validateRequest(productSchema.createProductSchema, "body"),
-//   productController.createProductController
-// );
+router.post('/', validateRequest(productSchema.createProductSchema, 'body'), productController.createProductController);
 
 router.get('/', validateRequest(productSchema.getProductsSchema, 'query'), productController.getProductsController);
 
