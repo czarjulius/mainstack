@@ -1,0 +1,61 @@
+version: "2"
+services:
+  web:
+    container_name: orla
+    platform: linux/amd64
+    build: .
+    command: sh -c "/wait && npx sequelize-cli db:migrate && npm run start"
+    ports:
+      - "1001:1001"
+    env_file:
+      - .env
+    links:
+      - postgres
+      - redis
+    depends_on:
+      - postgres
+      - redis
+    restart: on-failure
+    networks:
+      - authentication_some-net
+    environment:
+      REDIS_URL: "${REDIS_URL}"
+      DB_URL: "${DB_URL}"
+      DB_NAME: "${DB_NAME}"
+      DB_HOST: "${DB_HOST}"
+      DB_PORT: "${DB_PORT}"
+      DB_USERNAME: "${DB_USERNAME}"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      DB_PASSWORD: "${DB_PASSWORD}"
+      WAIT_HOSTS: postgres:5432
+  postgres:
+    container_name: orla_postgres
+    image: postgres
+    restart: always
+    hostname: postgres
+    networks:
+      - authentication_some-net
+    environment:
+      POSTGRES_USER: "${DB_USERNAME}"
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_DB: "${DB_NAME}"
+    volumes:
+      - ./data/local:/var/lib/postgresql/data
+    ports:
+      - "5451:5432"
+  redis:
+    image: redis
+    restart: always
+    networks:
+      - authentication_some-net
+    container_name: orla_redis
+    hostname: redis
+    expose:
+      - 6379
+    ports:
+      - "6368:6379"
+networks:
+  authentication_some-net:
+    external: false
