@@ -13,12 +13,7 @@ router.post(
   productController.createProductController
 );
 
-router.get(
-  '/',
-
-  validateRequest(productSchema.getProductsSchema, 'query'),
-  productController.getProductsController
-);
+router.get('/', validateRequest(productSchema.getProductsSchema, 'query'), productController.getProductsController);
 
 router.get(
   '/:productId',

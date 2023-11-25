@@ -5,9 +5,9 @@ import * as productService from './product.service';
 import createResponse from '@helpers/createResponse';
 import { AddProductInterface, GetProductInterface } from './product.interface';
 
-export const getProductsController = async (_: Request, res: Response, next: NextFunction) => {
+export const getProductsController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { error, message, data } = await productService.getAllProducts();
+    const { error, message, data } = await productService.getAllProducts({ ...(req as any).query });
 
     if (error) {
       return next(

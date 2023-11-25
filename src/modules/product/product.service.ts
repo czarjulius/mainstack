@@ -1,10 +1,19 @@
 import Product from '../../db/models/products';
-// import { getPaginatedRecords } from '@helpers/paginate';
-import { AddProductInterface, GetProductInterface } from './product.interface';
+import { getPaginatedRecords } from '@helpers/paginate';
+import { AddProductInterface, GetProductInterface, GetProductsInterface } from './product.interface';
 
-export const getAllProducts = async () => {
+export const getAllProducts = async (data: GetProductsInterface) => {
   try {
-    const products = await Product.find();
+    // const products = await Product.find().populate('category', 'name').exec();
+    const products = await getPaginatedRecords(Product, {
+      page: data.page || 1,
+      limit: data.limit,
+      where: {
+        ...(data.name && {
+          name: data.name,
+        }),
+      },
+    });
 
     return {
       error: false,

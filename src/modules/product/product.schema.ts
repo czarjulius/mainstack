@@ -3,6 +3,7 @@ const Joi = require('@hapi/joi').extend(require('@joi/date'));
 export const getProductsSchema = Joi.object({
   page: Joi.number().positive(),
   limit: Joi.number().positive().min(1).max(100),
+  name: Joi.string(),
 });
 
 export const createProductSchema = Joi.object({
@@ -20,7 +21,7 @@ export const getProductSchema = Joi.object({
 export const updateProductSchema = Joi.object({
   name: Joi.string().trim(),
   description: Joi.string().trim(),
-  category: Joi.number(),
+  category: Joi.string().trim().required(),
   productImage: Joi.string().trim(),
   price: Joi.number(),
 });

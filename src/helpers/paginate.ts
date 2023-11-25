@@ -8,12 +8,14 @@ export const getPaginatedRecords = async (
     order = 'desc',
     pageOffset,
     orderFields = ['createdAt', order],
+    where = {},
   }: {
     limit?: number;
     page: number;
     order?: (typeof orderType)[number];
     pageOffset?: number;
     orderFields?: Array<string | object>;
+    where?: any;
   },
   ...args
 ): Promise<typeof model> => {
@@ -30,7 +32,8 @@ export const getPaginatedRecords = async (
     sortObject[fieldName] = fieldOrder;
   }
 
-  const result = await model.find(args[0]).skip(skip).limit(limit).sort(sortObject);
+  const query = model.find({ ...args[0], ...where });
+  const result = await query.skip(skip).limit(limit).sort(sortObject);
 
   const { populate, ...rest } = args[0] || {};
 

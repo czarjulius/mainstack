@@ -9,6 +9,7 @@ export interface AddProductInterface {
 export interface GetProductsInterface {
   page: number;
   limit: number;
+  name: string;
 }
 
 export interface GetProductInterface {

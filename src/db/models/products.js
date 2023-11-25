@@ -12,7 +12,7 @@ const productSchema = _Schema(
       required: true,
     },
 
-    category: { type: _Schema.Types.ObjectId, ref: 'categories', required: true },
+    category: { type: _Schema.Types.ObjectId, ref: 'Category', required: true },
 
     productImage: {
       type: String,
