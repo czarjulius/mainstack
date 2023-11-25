@@ -61,7 +61,7 @@ export const createProduct = async (data: AddProductInterface) => {
 
 export const getProductById = async (data: GetProductInterface) => {
   try {
-    const product = await Product.findById(data.productId);
+    const product = await Product.findById(data.productId).populate('category', 'name').exec();
     if (!product) {
       return {
         error: true,
