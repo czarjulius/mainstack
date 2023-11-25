@@ -10,26 +10,22 @@ router.post('/', validateRequest(productSchema.createProductSchema, 'body'), pro
 
 router.get('/', validateRequest(productSchema.getProductsSchema, 'query'), productController.getProductsController);
 
-// router.get(
-//   "/:productId",
-//   validateRequest(productSchema.getProductSchema, "params"),
-//   productController.getProductController
-// );
+router.get(
+  '/:productId',
+  validateRequest(productSchema.getProductSchema, 'params'),
+  productController.getProductController
+);
 
-// router.patch(
-//   "/:productId",
-//   isLoggedIn,
-//   isAdmin,
-//   validateRequest(productSchema.updateProductSchema, "body"),
-//   productController.updateProductByIdController
-// );
+router.patch(
+  '/:productId',
+  validateRequest(productSchema.updateProductSchema, 'body'),
+  productController.updateProductByIdController
+);
 
-// router.delete(
-//   "/:productId",
-//   isLoggedIn,
-//   isAdmin,
-//   validateRequest(productSchema.deleteProductSchema, "params"),
-//   productController.deleteProductByIdController
-// );
+router.delete(
+  '/:productId',
+  validateRequest(productSchema.getProductSchema, 'params'),
+  productController.deleteProductByIdController
+);
 
 export default router;
