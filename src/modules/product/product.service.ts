@@ -26,7 +26,7 @@ export const createProduct = async (data: AddProductInterface) => {
     const newProduct = {
       name: data.name,
       description: data?.description,
-      categoryId: data.categoryId,
+      category: data.category,
       productImage: data.productImage,
       price: data.price,
     };

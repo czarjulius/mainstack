@@ -1,7 +1,7 @@
 export interface AddProductInterface {
   name: string;
   description: string;
-  categoryId: number;
+  category: string;
   productImage: string;
   price: number;
   productId?: string;
