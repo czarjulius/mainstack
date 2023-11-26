@@ -1,8 +1,8 @@
 import supertest from 'supertest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import app from '../app';
 import mongoose from 'mongoose';
 import { hashPassword } from '@helpers/password';
+import app from '../app';
 
 const categoryId = new mongoose.Types.ObjectId().toString();
 const userId = new mongoose.Types.ObjectId().toString();
