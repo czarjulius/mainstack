@@ -4,13 +4,12 @@ import { AddProductInterface, GetProductInterface, GetProductsInterface } from '
 
 export const getAllProducts = async (data: GetProductsInterface) => {
   try {
-    // const products = await Product.find().populate('category', 'name').exec();
     const products = await getPaginatedRecords(Product, {
       page: data.page || 1,
       limit: data.limit,
       where: {
         ...(data.name && {
-          name: data.name,
+          name: { $regex: data.name, $options: 'i' },
         }),
       },
     });
