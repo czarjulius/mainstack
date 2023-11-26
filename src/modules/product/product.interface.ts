@@ -10,9 +10,6 @@ export interface GetProductsInterface {
   page: number;
   limit: number;
   name: string;
-  category: string;
-  productId: string;
-  price: number;
 }
 
 export interface GetProductInterface {

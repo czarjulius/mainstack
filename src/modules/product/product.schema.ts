@@ -4,9 +4,6 @@ export const getProductsSchema = Joi.object({
   page: Joi.number().positive(),
   limit: Joi.number().positive().min(1).max(100),
   name: Joi.string(),
-  category: Joi.string(),
-  productId: Joi.string(),
-  price: Joi.number().positive().min(1),
 });
 
 export const createProductSchema = Joi.object({
