@@ -16,7 +16,6 @@ ENV JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
 
 WORKDIR /usr/app
 
-COPY package-lock.json ./
 COPY package.json ./
 
 RUN npm install
