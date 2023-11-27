@@ -13,6 +13,7 @@ type Secrets = Readonly<{
     jwtSecret: string;
     jwtExpiresIn: string;
     dbURL: string;
+    testDbURL: string;
   };
 }>;
 
@@ -49,6 +50,7 @@ export default function config() {
         jwtSecret: process.env.JWT_SECRET || '',
         jwtExpiresIn: process.env.JWT_EXPIRES_IN || '',
         dbURL: process.env.MONGO_URI || '',
+        testDbURL: process.env.MONGO_URI_TEST || '',
       },
     });
   }

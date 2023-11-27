@@ -13,7 +13,7 @@
     "start:dev": "rimraf ./build && tsc && nodemon build/server.js",
     "start:staging": "cross-env NODE_ENV=staging node build/server.js ",
     "dev": "concurrently -k \"tsc  -w\" \"nodemon build/server.js\"",
-    "test": "jest --watchAll --detectOpenHandles"
+    "test": "jest"
   },
   "_moduleAliases": {
     "@config": "build/config",
@@ -36,7 +36,6 @@
     "helmet": "^6.0.0",
     "jsonwebtoken": "^9.0.0",
     "module-alias": "^2.2.3",
-    "mongodb-memory-server": "^9.1.1",
     "mongoose": "^8.0.1",
     "phantomjs-prebuilt": "^2.1.16",
     "redis": "^3.1.2",

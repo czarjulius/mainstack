@@ -9,6 +9,8 @@ const {
   secrets: { jwtSecret, jwtExpiresIn },
 } = config();
 
+const jwtPrivateKey = process.env.NODE_ENV !== 'test' ? jwtSecret : 'jwt@secrect';
+
 export const isLoggedIn = async (req, res, next) => {
   try {
     const token = req.header('Authorization').split(' ')[1] || req.body.token || req.query.token;
@@ -23,12 +25,12 @@ export const isLoggedIn = async (req, res, next) => {
         })
       );
     }
-    const decoded = jwt.verify(token, jwtSecret);
+    const decoded = jwt.verify(token, jwtPrivateKey);
     const curUser = await User.findOne({ email: decoded.email });
     req.user = { id: curUser?._id, email: curUser.email };
     next();
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(401).json({
       status: 401,
       error: 'authentication failed, please login again',
@@ -42,7 +44,7 @@ export const generateToken = (id, email) => {
       id,
       email,
     },
-    process.env.NODE_ENV !== 'test' ? jwtSecret : 'jwt@secrect',
+    jwtPrivateKey,
     {
       expiresIn: jwtExpiresIn || 30,
     }

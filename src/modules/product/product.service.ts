@@ -75,7 +75,7 @@ export const getProductById = async (data: GetProductInterface) => {
       data: product,
     };
   } catch (err) {
-    // console.log(err);
+    console.log(err);
     return {
       error: true,
       message: (err as any).message,

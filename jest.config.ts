@@ -6,6 +6,8 @@ const jestConfig: JestConfigWithTsJest = {
     '^.+\\.tsx?$': 'ts-jest',
     '^.+\\.jsx?$': 'babel-jest',
   },
+  setupFiles: ['./jest.setup.js'],
+
   moduleDirectories: ['node_modules', '<rootDir>'],
   moduleNameMapper: {
     '^@config/(.*)$': '<rootDir>/src/config/$1',
