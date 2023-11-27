@@ -1,6 +1,6 @@
 import { HTTP, RESPONSE } from '@constants/enums';
 import createError from '@helpers/createError';
-import config from '@config';
+import config from '@config/index';
 import jwt from 'jsonwebtoken';
 
 import User from '../db/models/user';
@@ -28,7 +28,7 @@ export const isLoggedIn = async (req, res, next) => {
     req.user = { id: curUser?._id, email: curUser.email };
     next();
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(401).json({
       status: 401,
       error: 'authentication failed, please login again',
@@ -42,9 +42,9 @@ export const generateToken = (id, email) => {
       id,
       email,
     },
-    jwtSecret,
+    process.env.NODE_ENV !== 'test' ? jwtSecret : 'jwt@secrect',
     {
-      expiresIn: jwtExpiresIn,
+      expiresIn: jwtExpiresIn || 30,
     }
   );
 

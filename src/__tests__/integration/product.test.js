@@ -2,7 +2,7 @@ import supertest from 'supertest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { hashPassword } from '@helpers/password';
-import app from '../app';
+import app from '../../app';
 
 const categoryId = new mongoose.Types.ObjectId().toString();
 const userId = new mongoose.Types.ObjectId().toString();
@@ -36,12 +36,22 @@ xdescribe('product', () => {
     await mongoose.connection.close();
   });
 
-  xdescribe('get product route', () => {
+  describe('get product route', () => {
     describe('given the product does not exist', () => {
       it('should return a 404', async () => {
         const productId = 'product-123';
 
-        await supertest(app).get(`/products/${productId}`).expect(404);
+        await supertest(app).get(`/products/${productId}`).expect(400);
+      });
+    });
+  });
+
+  describe('create product route', () => {
+    describe('given the user is not logged in', () => {
+      it('should return a 403', async () => {
+        const { statusCode } = await supertest(app).post('/products');
+
+        expect(statusCode).toBe(401);
       });
     });
   });

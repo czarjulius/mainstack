@@ -13,7 +13,7 @@
     "start:dev": "rimraf ./build && tsc && nodemon build/server.js",
     "start:staging": "cross-env NODE_ENV=staging node build/server.js ",
     "dev": "concurrently -k \"tsc  -w\" \"nodemon build/server.js\"",
-    "test": "jest"
+    "test": "jest --watchAll --detectOpenHandles"
   },
   "_moduleAliases": {
     "@config": "build/config",
@@ -57,6 +57,7 @@
     "@types/node": "^18.11.9",
     "@types/supertest": "^2.0.16",
     "@types/winston": "^2.4.4",
+    "babel-jest": "^29.7.0",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "concurrently": "^7.6.0",

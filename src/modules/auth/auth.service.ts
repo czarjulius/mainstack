@@ -32,7 +32,7 @@ export const createUser = async (data: AuthInterface) => {
       } as any,
     };
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return {
       error: true,
       message: (err as any).message,
@@ -69,7 +69,7 @@ export const login = async (data: AuthInterface) => {
       } as any,
     };
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return {
       error: true,
       message: (err as any).message,
