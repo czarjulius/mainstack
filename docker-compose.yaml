@@ -1,36 +1,35 @@
-version: '3'
+version: '2'
 services:
-  app:
-    image: node:latest
-    working_dir: /app
-    volumes:
-      - ./app:/app
-    environment:
-      - MONGO_URI=${MONGO_URI}
-      - APP_CONTEXT=${APP_CONTEXT}
-      - PORT=${PORT}
-      - API_VERSION=${API_VERSION}
-      - JWT_SECRET=${JWT_SECRET}
-      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
-    command: npm start
+  web:
+    container_name: store
+    platform: linux/amd64
+    build: .
+    command: npm run start
     ports:
-      - ${PORT}:${PORT}
+      - '1001:1001'
+    env_file:
+      - .env
+    links:
+      - mongodb
     depends_on:
-      - mongo
+      - mongodb
+    restart: on-failure
     networks:
-      - mynetwork
-
-  mongo:
-    image: mongo:latest
+      - authentication_some-net
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=rootpassword
-      - MONGO_URI_TEST=${MONGO_URI_TEST}
+      MONGO_URI: 'mongodb://mongodb:27017/mainstack'
+      APP_CONTEXT: '${APP_CONTEXT}'
+      PORT: 1001
+      API_VERSION: 'v1'
+      JWT_SECRET: '${JWT_SECRET}'
+      JWT_EXPIRES_IN: '30d'
+      MONGO_URI_TEST: 'mongodb://mongodb:27017/mainstack_test'
+  mongodb:
+    image: mongo:latest
+    networks:
+      - authentication_some-net
     ports:
       - '27017:27017'
-    networks:
-      - mynetwork
-
 networks:
-  mynetwork:
-    driver: bridge
+  authentication_some-net:
+    external: false

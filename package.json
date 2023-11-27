@@ -37,11 +37,8 @@
     "jsonwebtoken": "^9.0.0",
     "module-alias": "^2.2.3",
     "mongoose": "^8.0.1",
-    "phantomjs-prebuilt": "^2.1.16",
     "redis": "^3.1.2",
     "rimraf": "^3.0.2",
-    "short-id": "^0.1.0-1",
-    "swagger-ui-express": "^4.6.0",
     "winston": "^3.8.2",
     "yamljs": "^0.3.0"
   },

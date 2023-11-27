@@ -23,6 +23,12 @@ To run tests for the server side
 - Navigate to the location of the folder
 - Run `yarn test` to install dependencies
 
+## Running the docker
+
+- Navigate to the location of the folder in your terminal
+
+- Run `docker-compose up` to start up the server
+
 ## Authors
 
 - Julius Ngwu

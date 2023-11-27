@@ -1,8 +1,4 @@
-FROM node:alpine
-
-## Add the wait script to the image
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.9.0/wait /wait
-RUN chmod +x /wait
+FROM node:slim
 
 ARG MONGO_URI
 ARG MONGO_URI_TEST
@@ -20,7 +16,9 @@ ENV JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
 
 WORKDIR /usr/app
 
-COPY package.json .
+COPY package-lock.json ./
+COPY package.json ./
+
 RUN npm install
 COPY . .
 RUN npm run build

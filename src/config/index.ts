@@ -6,9 +6,6 @@ type Secrets = Readonly<{
   env: string;
   version: string;
   port: string;
-  redisPort: string;
-  redisHost: string;
-  redisUrl: string;
   secrets: {
     jwtSecret: string;
     jwtExpiresIn: string;
@@ -43,9 +40,6 @@ export default function config() {
       env,
       version: process.env.API_VERSION || 'v1',
       port: process.env.PORT || '3000',
-      redisHost: process.env.REDIS_HOST || '127.0.0.1',
-      redisPort: process.env.REDIS_PORT || '6379',
-      redisUrl: process.env.REDIS_URL || 'redis://127.0.0.1:6379',
       secrets: {
         jwtSecret: process.env.JWT_SECRET || '',
         jwtExpiresIn: process.env.JWT_EXPIRES_IN || '',
