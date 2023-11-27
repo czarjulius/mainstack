@@ -1,61 +1,36 @@
-version: "2"
+version: '3'
 services:
-  web:
-    container_name: orla
-    platform: linux/amd64
-    build: .
-    command: sh -c "/wait && npm run build && npx sequelize-cli db:migrate && npm run dev"
+  app:
+    image: node:latest
+    working_dir: /app
     volumes:
-      - .:/usr/app/
+      - ./app:/app
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - APP_CONTEXT=${APP_CONTEXT}
+      - PORT=${PORT}
+      - API_VERSION=${API_VERSION}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
+    command: npm start
     ports:
-      - "1001:1001"
-    links:
-      - postgres
-      - redis
+      - ${PORT}:${PORT}
     depends_on:
-      - postgres
-      - redis
-    restart: on-failure
+      - mongo
     networks:
-      - authentication_some-net
+      - mynetwork
+
+  mongo:
+    image: mongo:latest
     environment:
-      REDIS_URL: "${REDIS_URL}"
-      DB_URL: "${DB_URL}"
-      DB_NAME: "${DB_NAME}"
-      DB_HOST: "${DB_HOST}"
-      DB_PORT: "${DB_PORT}"
-      DB_USERNAME: "${DB_USERNAME}"
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      DB_PASSWORD: "${DB_PASSWORD}"
-      WAIT_HOSTS: postgres:5432
-  postgres:
-    container_name: orla_postgres
-    image: postgres
-    restart: always
-    hostname: postgres
-    networks:
-      - authentication_some-net
-    environment:
-      POSTGRES_USER: "${DB_USERNAME}"
-      POSTGRES_HOST_AUTH_METHOD: trust
-      POSTGRES_PASSWORD: "${DB_PASSWORD}"
-      POSTGRES_DB: "${DB_NAME}"
-    volumes:
-      - ./data/local:/var/lib/postgresql/data
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=rootpassword
+      - MONGO_URI_TEST=${MONGO_URI_TEST}
     ports:
-      - "5451:5432"
-  redis:
-    image: redis
-    restart: always
+      - '27017:27017'
     networks:
-      - authentication_some-net
-    container_name: orla_redis
-    hostname: redis
-    expose:
-      - 6379
-    ports:
-      - "6368:6379"
+      - mynetwork
+
 networks:
-  authentication_some-net:
-    external: false
+  mynetwork:
+    driver: bridge
