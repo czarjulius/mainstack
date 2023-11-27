@@ -11,12 +11,9 @@ const {
 
 export const DB_URL = testDbURL;
 
-describe('Sample Test', () => {
-  test('returns 1 if number is 1', () => {
-    expect(1).toBe(1);
-  });
+test('returns 1 if number is 1', () => {
+  expect(1 + 1).toBe(2);
 });
-expect(true).toBe(true);
 
 export const createUserAndSave = async () => {
   const hashedPassword = hashPassword('testpassword');
