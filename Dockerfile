@@ -1,4 +1,4 @@
-FROM node:20.5.0
+FROM node:slim
 
 ARG MONGO_URI
 ARG MONGO_URI_TEST
